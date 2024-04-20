@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get User Location</title>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            document.getElementById('latitude').value = latitude;
+            document.getElementById('longitude').value = longitude;
+        }
+    </script>
+</head>
+<body>
+    <h2>Get User Location</h2>
+    <button onclick="getLocation()">Get Location</button>
+    <form action="save_location.php" method="post">
+        <label for="latitude">Latitude:</label>
+        <input type="text" id="latitude" name="latitude" readonly><br><br>
+        <label for="longitude">Longitude:</label>
+        <input type="text" id="longitude" name="longitude" readonly><br><br>
+        <input type="submit" value="Save Location">
+    </form>
+</body>
+</html>
