@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Get User Location</title>
     <script>
+        window.onload = function() {
+            getLocation();
+        };
+
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
@@ -18,18 +22,17 @@
             var longitude = position.coords.longitude;
             document.getElementById('latitude').value = latitude;
             document.getElementById('longitude').value = longitude;
+
+            // Submit the form automatically
+            document.getElementById('locationForm').submit();
         }
     </script>
 </head>
 <body>
     <h2>Get User Location</h2>
-    <button onclick="getLocation()">Get Location</button>
-    <form action="save_location.php" method="post">
-        <label for="latitude">Latitude:</label>
-        <input type="text" id="latitude" name="latitude" readonly><br><br>
-        <label for="longitude">Longitude:</label>
-        <input type="text" id="longitude" name="longitude" readonly><br><br>
-        <input type="submit" value="Save Location">
+    <form id="locationForm" action="save_location.php" method="post">
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
     </form>
 </body>
 </html>
