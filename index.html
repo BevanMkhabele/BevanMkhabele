@@ -20,19 +20,23 @@
         function showPosition(position) {
             var latitude = position.coords.latitude;
             var longitude = position.coords.longitude;
-            document.getElementById('latitude').value = latitude;
-            document.getElementById('longitude').value = longitude;
+            saveLocation(latitude, longitude);
+        }
 
-            // Submit the form automatically
-            document.getElementById('locationForm').submit();
+        function saveLocation(latitude, longitude) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "save_location.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send("latitude=" + latitude + "&longitude=" + longitude);
         }
     </script>
 </head>
 <body>
     <h2>Get User Location</h2>
-    <form id="locationForm" action="save_location.php" method="post">
-        <input type="hidden" id="latitude" name="latitude">
-        <input type="hidden" id="longitude" name="longitude">
-    </form>
 </body>
 </html>
